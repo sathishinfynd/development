@@ -1,0 +1,204 @@
+{
+    "datasource": [
+        {
+            "index": 1,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 1 },
+                "type": "aws"
+            }
+        },
+        {
+            "index": 2,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 2 },
+                "type": "aws"
+            }
+        },        
+        {
+            "index": 4,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 4239 },
+                "type": "aws"
+            }
+        },
+        {
+            "index": 5,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 8429 },
+                "type": "aws"
+            }
+        },
+        {
+            "index": 6,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 9036 },
+                "type": "aws"
+            }
+        },
+        {
+            "index": 7,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 4023 },
+                "type": "aws"
+            }
+        },
+        {
+            "index": 10,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 7777, "params": ["company"] },
+                "type": "aws_user"
+            }
+        }
+    ],
+    "filters": [
+        {
+            "displayText": "Company Name",
+            "displayMsg": "Please enter the company name here. You can either include/exclude companies matching the name you entered",
+            "field": "name",
+            "type": "multitext",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },
+        {
+            "displayText": "Location",
+            "displayMsg": "Please select any location from the list. You can either include/exclude companies that operate in the selected location will be filtered",
+            "field": "location",
+            "type": "search",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": true,
+            "splitColumns": ["city","country"]
+        },
+        {
+            "displayText": "Country",
+            "displayMsg": "Please select any country from the list. You can either include/exclude companies that operate in the selected location will be filtered",
+            "field": "country",
+            "type": "search",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": true,
+            "splitColumns": ["country","continent"]
+        },
+        {
+            "displayText": "Status",
+            "displayMsg": "Please select the desired status. You can either include/exclude the companies that has the selected status",
+            "field": "status",
+            "type": "multidropdown",
+            "selectValues": [
+                {"value": "acquired", "label": "Acquired"},
+                {"value": "operating", "label": "Operating"},
+                {"value": "closed", "label": "Closed"},
+                {"value": "ipo", "label": "IPO"}],
+            "filteredValue": "",
+            "filteredText": [],
+            "condition": "includes"
+        },
+        {
+            "displayText": "Employee Count",
+            "displayMsg": "Please select the desired range. You can either include/exclude the companies that fall in the range",
+            "field": "employee_count",
+            "type": "multidropdown",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },   
+        {
+            "displayText": "Industry",
+            "displayMsg": "Please select any category from the list. You can either include/exclude companies that operate in the selected category will be filtered",
+            "field": "category_list",
+            "type": "multidropdown",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },
+        {
+            "displayText": "Industry Group",
+            "displayMsg": "Please select any category group from the list. You can either include/exclude companies that operate in the selected category group will be filtered",
+            "field": "company_category_list",
+            "type": "multidropdown",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "condition": "includes",
+            "matchtype": "match_phrase",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },             
+        {
+            "displayText": "Revenue",
+            "displayMsg": "Please select the desired range. You can either include/exclude the companies that fall in the range",
+            "field": "revenue_range",
+            "type": "multidropdown",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },
+        {
+            "displayText": "Funding",
+            "displayMsg": "Please enter the minimum and funding amount(usd) to find the companies in the range",
+            "field": "total_funding_usd",
+            "type": "numberrange",
+            "minValue": "",
+            "maxValue": ""
+        },        
+        {
+            "displayText": "Founded Date",
+            "displayMsg": "Please select the from and to date to find the companies founded between the selected dates",
+            "field": "founded_dt",
+            "type": "daterange",
+            "fromDate": "",
+            "toDate": ""       
+        },
+        {
+            "displayText": "File Exclusion",
+            "displayMsg": "Please select the desired status. You can either include/exclude the companies that has the selected status",
+            "field": "exclusion",
+            "type": "exclusion",
+            "selectValues1": [
+                {"value": "phone", "label": "Phone"},
+                {"value": "email", "label": "Email"},
+                {"value": "homepage_url", "label": "Website Url"}
+            ],
+            "selectValues": [],
+            "matchtype": "match_phrase",
+            "filteredValue": "",
+            "filteredText": [],
+            "condition": "excludes"
+        }
+    ]
+}

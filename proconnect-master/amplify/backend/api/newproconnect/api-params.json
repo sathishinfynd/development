@@ -1,0 +1,34 @@
+{
+    "paths": [
+        {
+            "name": "/items",
+            "lambdaFunction": "dummy",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "newproconnect",
+    "apiName": "newproconnect",
+    "functionArns": [
+        {
+            "lambdaFunction": "dummy"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-procon-dev-185733-authRole",
+        "unAuthRoleName": "amplify-procon-dev-185733-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "dummy",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

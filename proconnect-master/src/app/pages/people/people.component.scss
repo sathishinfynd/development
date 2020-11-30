@@ -1,0 +1,21 @@
+.table-borderless th, .table-borderless td, .table-borderless thead th, .table-borderless tbody + tbody {
+    border: none !important;
+}
+.root.timeline.twitter-timeline {
+    background-color: #2c3e50; 
+}
+#overview {
+    margin-top: 70px;
+}
+.toolbar {
+    background: white;
+    padding: 10px;
+    box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+    border-bottom: 1px solid #f4f7fa;
+}
+
+@media only screen and (max-width: 991px) {
+    #overview {
+        margin-top: 0;
+    }
+}

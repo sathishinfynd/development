@@ -1,0 +1,12 @@
+.nodata {
+    padding: 30px 25px;
+}
+
+.table-responsive {
+    overflow: hidden;
+}
+
+.table-responsive:hover {
+    overflow-y: auto;
+    scrollbar-width: thin;
+}

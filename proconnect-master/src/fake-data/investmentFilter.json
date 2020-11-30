@@ -1,0 +1,108 @@
+{
+    "datasource": [
+        {
+            "index": 0,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 1 },
+                "type": "aws"
+            }
+        },
+        {
+            "index": 1,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 2 },
+                "type": "aws"
+            }
+        },
+        {
+            "index": 3,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 2345 },
+                "type": "aws"
+            }
+        },
+        {
+            "index": 4,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 6785 },
+                "type": "aws"
+            }
+        }
+    ],
+    "filters": [
+        {
+            "displayText": "Location",
+            "displayMsg": "Please select any location from the list. You can either include/exclude companies that operate in the selected location will be filtered",
+            "field": "location",
+            "type": "search",
+            "selectValues": [],
+            "filteredValue": "",
+            "matchtype": "match_phrase",
+            "filteredText": [],
+            "condition": "includes",
+            "splitFilteredValue": true,
+            "splitColumns": ["city","country"]
+        },
+        {
+            "displayText": "Country",
+            "displayMsg": "Please select any location from the list. You can either include/exclude companies that operate in the selected location will be filtered",
+            "field": "country",
+            "type": "search",
+            "selectValues": [],
+            "filteredValue": "",
+            "matchtype": "match_phrase",
+            "filteredText": [],
+            "condition": "includes",
+            "splitFilteredValue": true,
+            "splitColumns": ["country","continent"]
+        },
+        {
+            "displayText": "Name",
+            "displayMsg": "Please enter the investor name here. You can either include/exclude investors matching the name you entered",
+            "field": "name",
+            "type": "multitext",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },
+        {
+            "displayText": "Investor Type",
+            "displayMsg": "Please select the desired range. You can either include/exclude the investors that fall in the range",
+            "field": "investor_types",
+            "type": "multidropdown",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },
+        {
+            "displayText": "Investment Stage",
+            "displayMsg": "Please select the desired range. You can either include/exclude the investors that fall in the range",
+            "field": "investment_types",
+            "type": "multidropdown",
+            "selectValues": [],
+            "filteredValue": "",
+            "matchtype": "match_phrase",
+            "filteredText": [],
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        }
+        
+    ]
+}

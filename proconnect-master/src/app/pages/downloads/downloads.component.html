@@ -1,0 +1,53 @@
+<div class="row justify-content-md-center">
+    <div class="col-md-12 col-xl-12">
+        <h1 class="text-center title"><i class="feather icon-download mr-3 "></i>Your Downloads</h1>
+    </div>
+    <div class="col-sm-10 col-md-10">
+        <div class="card shadow-2">
+                <div class="row card-header borderless">
+                        <div class="col">
+                            <h5>Download History</h5>
+                        </div>
+                        <div class="col text-right">
+                            <span class="label f-12 text-uppercase p-2 pl-0 pr-4 text-info credit-btn">
+                                <span class="f-20 mr-1">{{creditLeft}}</span>
+                                CREDITS LEFT
+                            </span>
+                            <span class="f-20 ml-4 mr-2">{{creditUsed}}</span><span class="f-12">CREDITS USED</span>
+                        </div>
+                    </div>
+            <div class="card-block pt-0 pb-0">
+                
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Credit</th>
+                                <th class="text-center" style="width:150px">Download</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let file of downloadedFiles">
+                                <td>
+                                    <h6 class="m-0">{{file.purchase_dt | date:'dd-MMM-yyyy' }}</h6>
+                                </td>
+                                <td>
+                                    <h6 class="m-0">{{file.type}}</h6>
+                                </td>
+                                <td>
+                                    <h6 class="m-0">{{file.credit}}</h6>
+                                </td>
+                                <td class="pt-2 pb-2" style="width:150px">
+                                    <button type="button" class="btn btn-rounded btn-theme shadow-2" (click)="onDownloadFile(file)"><i
+                                            class="feather icon-download mr-2"></i><span class="mobile-none">Download</span></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

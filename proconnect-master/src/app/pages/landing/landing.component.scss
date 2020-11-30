@@ -1,0 +1,64 @@
+.landing {
+
+  .navbar.past-main {
+    height: 70px;
+  }
+
+  .navbar-default .navbar-nav > li > a {
+    font-weight: normal;
+  }
+
+  .navbar.past-main {
+    box-shadow: none;
+  }
+
+  .dropdown-toggle::after {
+    margin-left: 10px;
+  }
+
+  .navbar .dropdown-menu, .navbar .dropdown-menu:after {
+    border-top-color: #1de9b6;
+  }
+  
+  .btn-rounded {
+    border-radius: 30px;
+  }
+
+  .app-hero {
+    background: white;
+  }
+  .app-hero-content img {
+    margin-top: 0;
+  }
+
+  @media (min-width: 1600px) {
+    .container {
+      max-width: 1140px;
+    }
+  }
+  @media (max-width: 992px) {
+    .container {
+      max-width: 100%;
+    }
+  }
+  .navbar-light .navbar-brand{
+    background: transparent;
+  }
+  .carousel-control-next-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+  }
+  .carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+  }
+
+  .carousel-indicators {
+    bottom: -30px;
+    li {
+      background-color: #999;
+      &.active {
+        background-color: #333;
+      }
+    }
+  }
+
+}

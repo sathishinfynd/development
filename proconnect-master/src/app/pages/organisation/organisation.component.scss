@@ -1,0 +1,38 @@
+.table-borderless th, .table-borderless td, .table-borderless thead th, .table-borderless tbody + tbody {
+    border: none;
+}
+
+#overview {
+    margin-top: 70px;
+}
+
+#widget-line-chart {
+    z-index: 9999;
+}
+
+.ChartShadow a {
+    color: white !important;
+}
+
+.toolbar {
+    background: white;
+    padding: 10px;
+    box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+    border-bottom: 1px solid #f4f7fa;
+}
+
+.bod-section {
+    .card-footer {
+        min-height: 42px;
+    }
+    .card-footer a:last-child i.mr-3 {
+        margin-right: 0 !important;
+    }
+}
+
+
+@media only screen and (max-width: 991px) {
+    #overview {
+        margin-top: 0;
+    }
+}

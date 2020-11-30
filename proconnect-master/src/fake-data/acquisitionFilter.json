@@ -1,0 +1,111 @@
+{
+    "datasource": [
+        {
+            "index": 0,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 1 },
+                "type": "aws"
+            }
+        },         
+        {
+            "index": 1,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 2 },
+                "type": "aws"
+            }
+        },       
+        {
+            "index": 6,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 2576 },
+                "type": "aws"
+            }
+        }
+    ],
+    "filters": [
+        {
+            "displayText": "Location",
+            "displayMsg": "Please select any location from the list. You can either include/exclude companies that operate in the selected location will be filtered",
+            "field": "location",
+            "type": "search",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": true,
+            "splitColumns": ["acquiree_city","acquiree_country"]
+        },
+        {
+            "displayText": "Country",
+            "displayMsg": "Please select any location from the list. You can either include/exclude companies that operate in the selected location will be filtered",
+            "field": "country",
+            "type": "search",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": true,
+            "splitColumns": ["acquiree_country","acquiree_continent"]
+        },        
+        {
+            "displayText": "Acquirer Company",
+            "displayMsg": "Please enter the acquirer company name here. You can either include/exclude acquisitions matching the name you entered",
+            "field": "acquirer_name",
+            "type": "multitext",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "condition": "includes",
+            "matchtype": "match_phrase",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },
+        {
+            "displayText": "Acquiree Company",
+            "displayMsg": "Please enter the acquiree company name here. You can either include/exclude acquisitions matching the name you entered",
+            "field": "acquiree_name",
+            "type": "multitext",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },
+        {
+            "displayText": "Price",
+            "displayMsg": "Please enter the minimum and funding amount(usd) to find the companies in the range",
+            "field": "price_usd",
+            "type": "numberrange",
+            "minValue": "",
+            "maxValue": ""
+        },
+        {
+            "displayText": "Acquired Date",
+            "displayMsg": "Please select the from and to date to find the companies founded between the selected dates",
+            "field": "acquired_dt",
+            "type": "daterange",
+            "fromDate": "",
+            "toDate": ""       
+        },        
+        {
+            "displayText": "Acquisition Type",
+            "displayMsg": "Please select the acquisition type. You can either include/exclude the companies that fall in the range",
+            "field": "acquisition_type",
+            "type": "multidropdown",
+            "selectValues": "",
+            "filteredValue": "",
+            "filteredText": [],
+            "condition": "includes"
+        }
+    ]
+}

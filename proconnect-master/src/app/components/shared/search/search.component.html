@@ -1,0 +1,43 @@
+<div class="card" *ngIf="queryString">
+    <div class="card-block p-0">
+        <div class="row card-header" *ngIf="api.name">
+            <div class="col-auto pr-0" *ngIf="api.icon">
+                <i [class]="api.icon" aria-hidden="true"></i>
+            </div>
+            <div class="col">
+                <h5>{{api.name}}</h5>
+            </div>
+        </div>
+        <div *ngIf="result.length" #scrollBar class="table-responsive" style="max-height:385px;" infiniteScroll
+            [infiniteScrollDistance]="2" (scrolled)="onScroll()" [scrollWindow]="false">
+            <table class="table table-hover m-0">
+                <tbody>
+                    <tr class="unread" style="height:77px;" *ngFor="let data of result">
+                        <a href="javascript:" (click)="onNavigate(data._source['permalink'])" *ngIf="api.variant !== 'v2'">
+                            <td style="width:50px;"><img class="text-right" style="width:40px;" src="{{data._source[api.columns[0]]}}"
+                                    alt="{{data._source[api.columns[1]]}}"></td>
+                            <td style="width:100%;">
+                                <h6 class="mb-2 f-14">{{data._source[api.columns[1]]}}</h6>
+                                <p class="m-0 f-12 ellipsis">{{data._source[api.columns[2]]}}</p>
+                            </td>
+                        </a>
+                        <a href="javascript:" (click)="onNavigate(data._source['permalink'])" *ngIf="api.variant === 'v2'">
+                            <td style="width:50px;"><img class="text-right" style="width:40px;" src="{{data._source[api.columns[0]]}}"
+                                    alt="{{data._source[api.columns[2]]}}"></td>
+                            <td style="width:100%;">
+                                <h6 class="mb-2 f-14">{{data._source[api.columns[1]]}}
+                                    {{data._source[api.columns[2]]}}
+                                    <span class="float-right text-muted" *ngIf="data._source[api.columns[3]]">{{data._source[api.columns[3]]
+                                        | date:'MMM, yy'}} - <span *ngIf="data._source[api.columns[4]]">{{data._source[api.columns[4]]
+                                            | date:'MMM, yy'}}</span>
+                                    </span>
+                                </h6>
+                                <p class="m-0 f-12"> <span *ngIf="data._source[api.columns[5]]" class="mb-1 badge p-1 pl-2 pr-2 f-10  badge-pill theme-bg2 text-white text-uppercase">{{data._source[api.columns[5]]}}</span></p>
+                            </td>
+                        </a>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h6 *ngIf="!result.length" class="nodata m-0">{{msg}}</h6>
+    </div>

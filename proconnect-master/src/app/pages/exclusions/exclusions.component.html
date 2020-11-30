@@ -1,0 +1,104 @@
+<div class="row justify-content-md-center">
+    <div class="col-md-12 col-xl-12">
+        <h1 class="text-center title"><i class="feather icon-download mr-3 "></i>File Exclusion</h1>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4">
+        <div class="card shadow-2">
+            <div class="row card-header">
+                <div class="col">
+                    <h5>Upload File</h5>
+                </div>
+            </div>
+            <div class="card-block ">
+                <form #validationForm="ngForm" class="editForm" novalidate>
+                    <div class="form-group">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" name="validation-name-required" placeholder=""
+                            [ngClass]="{'is-invalid': !name.valid && (name.dirty || name.touched || isSubmit)}" #name="ngModel"
+                            [(ngModel)]="selected.name" required>
+                        <label *ngIf="!name.valid && (name.dirty || name.touched || isSubmit)" id="validation-name-error"
+                            class="invalid-feedback">Name is required</label>
+                    </div>
+                    <label class="form-label">File</label>
+                    <div class="exclusive-file form-group">
+                        <input type="file" class="custom-file-input" id="file" name="file" accept=".csv" [(ngModel)]="selected.filepath"
+                            (change)="onFileSelected($event)" [ngClass]="{'is-invalid': !file.valid && (file.dirty || file.touched || isSubmit)}"
+                            #file="ngModel" required>
+                        <label class="custom-file-label" for="file">{{selected.filename}}</label>
+                        <div *ngIf="!file.valid && (file.dirty || file.touched || isSubmit)" id="validation-file-error"
+                            class="invalid-feedback">{{ msg || 'Exclusion file is required.'}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Type</label>
+                        <ng-select [ngClass]="'ng-select white-theme'" placeholder="Select" name="type" [options]="typeOptions"
+                            [(ngModel)]="selected.type" [ngClass]="{'is-invalid': !type.valid && (type.dirty || type.touched || isSubmit)}"
+                            #type="ngModel" required> </ng-select>
+                        <div *ngIf="!type.valid && (type.dirty || type.touched || isSubmit)" id="validation-type-error"
+                            class="invalid-feedback">Type is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Field</label>
+                        <ng-select [ngClass]="'ng-select white-theme'" placeholder="Select" name="field" [options]="fieldOptions"
+                            [(ngModel)]="selected.field" [ngClass]="{'is-invalid': !field.valid && (field.dirty || field.touched || isSubmit)}"
+                            #field="ngModel" required></ng-select>
+                        <div *ngIf="!field.valid && (field.dirty || field.touched || isSubmit)" id="validation-field-error"
+                            class="invalid-feedback">Field file is required.</div>
+                    </div>
+                    <div class="form-group text-center"><button type="button" class="btn btn-rounded btn-theme" (click)="onUpload(validationForm)"><i
+                                class="feather icon-upload f-20"></i>Upload <i class="fa fa-spinner fa-spin ml-2 mr-0"
+                                *ngIf="loading"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-8" *ngIf="exclusionFiles.length > 0">
+        <div class="card shadow-2">
+            <div class="row card-header borderless">
+                <div class="col">
+                    <h5>Exclusion File List</h5>
+                </div>
+            </div>
+            <div class="card-block pt-0 pb-0">
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th style="width: 250px;">Name</th>
+                                <th>Type</th>
+                                <th>Column</th>
+                                <th>Records</th>
+                                <th class="text-center" style="width:150px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let file of exclusionFiles">
+                                <td>
+                                    <h6 class="m-0">{{file.created_dt | date:'dd-MMM-yyyy' }}</h6>
+                                </td>
+                                <td>
+                                    <h6 class="m-0">{{file.file_name}}</h6>
+                                </td>
+                                <td>
+                                    <h6 class="m-0">{{file.type}}</h6>
+                                </td>
+                                <td>
+                                    <h6 class="m-0">{{file.column_name}}</h6>
+                                </td>
+                                <td>
+                                    <h6 class="m-0">{{file.count}}</h6>
+                                </td>
+                                <td class="pt-2 pb-2" style="width:150px">
+                                    <button type="button" class="btn btn-rounded btn-theme shadow-2" (click)="onDeleteFile(file)"><i
+                                            class="feather icon-x mr-2"></i><span class="mobile-none">Delete</span></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="row justify-content-md-center">
+    <div class="col-md-12 col-xl-12">
+        <h1 class="text-center title"><i class="feather icon-user mr-3 "></i>MY PROFILE</h1>
+        <p class="mt-3 text-center error is-invalid jquery-validation-error form-text invalid-feedback" *ngIf="!user?.attributes && !userLoading">Unable to get your profile details. Please check your connection and try later.</p>
+    </div>
+    
+    <div class="col-sm-12 col-md-7 col-xl-7 " *ngIf="user?.attributes">
+        <div class="card mb-0 shadow-2">
+            <div class="card-block p-0">
+                <div class="text-center project-main">
+                    <a href="javascript:" title="Logout" class="logout-btn" (click)="logmeOut()"><i class="feather icon-log-out text-c-green"></i></a>
+                    <img class="img-fluid rounded-circle" src="assets/images/user/avatar-2.jpg" alt="dashboard-user">
+                    <h5 class="mt-4 text-c-green">{{user.attributes['custom:first_name']}}
+                        {{user.attributes['custom:last_name']}}</h5>
+                    <span class="">{{user.attributes['custom:jobRole']}}</span><span class="" *ngIf="user.attributes['custom:business_name']">
+                        | {{user.attributes['custom:business_name']}}</span>
+                    <div class="mt-2"><i class="feather icon-mail mr-2 text-c-green"></i>{{user.attributes.email}}</div>
+                    <div class="mt-2"><i class="feather icon-phone mr-2 text-c-green"></i>{{user.attributes.phone_number}}</div>
+                    <div class="mt-2"><i class="fas fa-globe-europe mr-2 text-c-green"></i>Timezone :
+                        {{user.attributes['custom:timezone']}}</div>
+                    <div class="row mt-5">
+                        <div class="col-6 p-r-0">
+                            <a href="javascript:" [routerLink]="['/edit-profile']" class="btn btn-primary shadow-2 text-uppercase btn-block f-12"><i
+                                    class="feather icon-edit mr-2 text-white"></i>Edit Profile</a>
+                        </div>
+                        <div class="col-6">
+                            <a href="javascript:" [routerLink]="['/change-password']" class="btn text-uppercase border  shadow-2 btn-block btn-outline-secondary p-15 f-12"><i
+                                    class="feather icon-lock mr-2"></i>Change
+                                Password</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="mt-3 text-center error is-invalid jquery-validation-error form-text invalid-feedback" *ngIf="!subscription">Unable to get your subscription details. Please check your connection and try later.</p>
+        <div class="card theme-bg text-white text-center shadow-2">
+            <div class="card-body" *ngIf="subscription">
+                <h5 class="text-white text-uppercase">Subscription - {{subscription?.plan.nickname}}</h5>
+                <hr>
+                <h3 class="text-white m-t-10 f-w-300" *ngIf="!subscription.discount">£ {{(subscription?.plan.amount) /
+                    100}} p.m</h3>
+                <h3 class="text-white m-t-10 f-w-300" *ngIf="subscription.discount">£ {{(subscription?.plan.amount -
+                    subscription?.discount.coupon.amount_off) / 100}} p.m</h3>
+                <div class="row">
+                    <div class="col text-left">
+                        <p>END DATE <br />{{getFormattedDate(subscription?.current_period_end)}}</p>
+                    </div>
+                    <div class="col text-right">STATUS <br /><span class="badge  shadow-2 theme-bg2 text-white text-uppercase">{{subscription?.status}}</span></div>
+                </div>
+                <button class="btn btn-light shadow-2 text-uppercase" (click)="cancelSubscription()">Cancel
+                    Subscription</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-3 col-xl-3" *ngIf="isAdminUser">
+        <div class="card text-white text-center shadow-2">
+            <div class="card-body" >
+                <h5 class="text-uppercase mb-3">Quick Links</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr class="unread">
+                                <td><a href="https://eu-west-2.console.aws.amazon.com/cognito/users/?region=eu-west-2#/pool/eu-west-2_QxHQ2Xlf1/users?_k=kv92b4">AWS
+                                        User Management</a></td>
+                            </tr>
+                            <tr class="unread">
+                                <td> <a href="https://dashboard.stripe.com/login">Payment Gateway</a></td>
+                            </tr>
+                            <tr class="unread">
+                                <td><a href="https://eu-west-2.console.aws.amazon.com">Database Management</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
