@@ -1,0 +1,45 @@
+<h5 class="mb-3">Subscription Plan</h5>
+<div class="subscription col-sm-12 centered-content" *ngIf="!paymentIsSuccessful">
+    <div class="row mb-5 no-margin text-center">
+        <ngx-spinner bdColor="#fff" size="medium" color="#1de9b6" type="timer" [fullScreen]="false">
+            <p style="margin-top: 15px;"><br/><br/><br/>{{paymentProcessMsg}}</p>
+        </ngx-spinner>
+        <div class="col p-1 plan" *ngFor="let plan of plans; index as i">
+            <div class="card text-center shadow-2 " (click)="onPlanSelection(plan, i)">
+                <div class="card-body p-0">
+                    <div class="pt-3 pb-3 card-title theme-bg text-white text-center h5">{{plan.name}}</div>
+                    <div class="price mt-3 mb-3" [ngClass]="{'strike':plan.originalPrice != plan.price}">
+                        <span class="currency" *ngIf="plan.currency == 'gbp'">£</span><span class="currency" *ngIf="plan.currency == 'usd'">$</span>{{plan.originalPrice}}</div>
+                    <div class="price mt-3 mb-3" *ngIf="plan.originalPrice != plan.price"><span class="currency" *ngIf="plan.currency == 'gbp'">£</span><span
+                            class="currency" *ngIf="plan.currency == 'usd'">$</span>{{plan.price}}</div>
+                    <div class="frequency mb-3">per month</div>
+                    <span class="badge mb-3 badge-pill theme-bg2 shadow-2 badge-primary selected" *ngIf="selectedIndex == i">Selected</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p *ngIf="voucherApplied">{{selectedPlan.msg}}</p>
+    <div class="col-sm-12 mb-3 centered-content">
+        <div class="input-group pl-5 pr-5 bg-white" *ngIf="!voucherApplied">
+            <input type="text" class="form-control" placeholder="Voucher Code" [(ngModel)]="voucherCode">
+            <button type="button" class="btn btn-primary btn-sm" (click)="onApplyVoucher(voucherCode)">Apply</button>
+        </div>
+        <a href="javascript:" *ngIf="voucherApplied" (click)="onRemoveVoucher()">Voucher
+            {{voucherCode}} is applied<i class="feather icon-x ml-2"></i></a>
+    </div>
+    <div class="col-sm-12 centered-content">
+        <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout">
+            <div class="form-row">
+                <div id="card-info" #cardInfo style="width:100%;"></div>
+                <div id="card-errors" class="error is-invalid jquery-validation-error small form-text invalid-feedback" role="alert" *ngIf="error">{{ error }}</div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm mt-3" *ngIf="selectedPlan">Pay <span class="currency" *ngIf="selectedPlan.currency == 'gbp'">£</span><span
+                    class="currency" *ngIf="selectedPlan.currency == 'usd'">$</span>{{selectedPlan.price}}</button>
+        </form>
+    </div>
+</div>
+
+<div class="subscription col-sm-12 centered-content" *ngIf="paymentIsSuccessful">
+    <i class="feather icon-check-circle auth-icon"></i>
+    <p>Thank you for your subscription.</p>
+</div>

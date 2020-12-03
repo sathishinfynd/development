@@ -1,0 +1,210 @@
+<div class="card collapse" id="collapseExample">
+    <div class="card-header ">
+        <h5 style="float:left">Filters</h5>
+        <div style="float:right">
+            <a href="javascript:" (click)="onApplyFilter()" class="label theme-bg text-white f-12 round-btn mr-0 text-uppercase p-2 pl-3 pr-3">Apply
+                Filter</a>
+        </div>
+    </div>
+
+    <div class="card-body px-0 py-0">
+        <ngb-accordion [closeOthers]="true" class="prime-accordion">
+            <div *ngFor="let filter of data.filters; index as i">
+                <ngb-panel id="{{filter.field}}">
+                    <ng-template ngbPanelTitle>
+                        <div class="d-flex">
+                            <div class="pull-left btn" style="font-size:12px">By {{filter.displayText}}</div>
+                            <div *ngIf="!filterSelected(filter)" class="pull-right btn" style="position: absolute; right: 0"><i
+                                    class="feather icon-chevron-down f-20"></i></div>
+                            <div *ngIf="filterSelected(filter)" class="pull-right btn" style="position: absolute; right: 0"><i
+                                    class="feather icon-filter f-20"></i></div>
+                        </div>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <div [ngSwitch]="filter.type">
+                            <div *ngSwitchCase="'freetext'">
+                                <div class="mb-3 text-center">
+                                    <div class="form-group d-inline mr-2">
+                                        <div class="radio d-inline">
+                                            <input type="radio" name="radio-in-1" id="radio-in-1" [attr.checked]="filter.condition  == 'includes' ? '' : null"
+                                                (change)="onConditionUpdate($event, filter)">
+                                            <label for="radio-in-1" class="cr">Includes</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group d-inline">
+                                        <div class="radio d-inline">
+                                            <input type="radio" name="radio-in-1" id="radio-in-2" [attr.checked]="filter.condition  == 'excludes' ? '' : null"
+                                                (change)="onConditionUpdate($event, filter)">
+                                            <label for="radio-in-2" class="cr">Excludes</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="" [(ngModel)]="filter.filteredValue">
+                                <p class="text-center mt-3" style="font-size:12px">{{filter.displayMsg}}</p>
+                            </div>
+                            <div *ngSwitchCase="'singleselect'">
+
+                                <ng-select [ngClass]="'ng-select'" class="white-theme" placeholder="Select" *ngIf="filter.selectValues.length"
+                                    [options]="filter.selectValues" [(ngModel)]="filter.filteredValue" (selected)="onSelected(filter, $event)"
+                                    (deselected)="onDeselected(filter,$event)">
+                                </ng-select>
+                                <div class="mb-3 mt-3 text-center">
+                                    <div class="form-group d-inline mr-2">
+                                        <div class="radio d-inline">
+                                            <input type="radio" name="radio-in-1" id="radio-in-1" [attr.checked]="filter.condition  == 'includes' ? '' : null"
+                                                (change)="onConditionUpdate($event, filter)">
+                                            <label for="radio-in-1" class="cr">Includes</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group d-inline">
+                                        <div class="radio d-inline">
+                                            <input type="radio" name="radio-in-1" id="radio-in-2" [attr.checked]="filter.condition  == 'excludes' ? '' : null"
+                                                (change)="onConditionUpdate($event, filter)">
+                                            <label for="radio-in-2" class="cr">Excludes</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-center mt-3 pb-3" style="font-size:12px">{{filter.displayMsg}}</p>
+                            </div>
+                            <div *ngSwitchCase="'exclusion'">
+                                <ng-select [ngClass]="'ng-select'" class="white-theme" placeholder="Select" *ngIf="filter.selectValues1.length"
+                                    [options]="filter.selectValues1" [(ngModel)]="exclusion.column" (selected)="onSelected(filter, $event)"
+                                    (deselected)="onDeselected(filter,$event)">
+                                </ng-select>
+                                <ng-select [ngClass]="'ng-select'" class="mt-3 white-theme" placeholder="Select" *ngIf="filter.selectValues.length"
+                                    [options]="filter.selectValues" [(ngModel)]="exclusion.file" (selected)="onSelected(filter, $event)"
+                                    (deselected)="onDeselected(filter,$event)">
+                                </ng-select>
+
+                                <p class="text-center mt-3 pb-3" style="font-size:12px">{{filter.displayMsg}}</p>
+                            </div>
+                            <div *ngSwitchCase="'multiselect'">
+                                <ng-select [ngClass]="'ng-select'" class="white-theme" dropdownPosition="bottom"
+                                    appendTo="body" bindLabel="label" bindValue="value" [multiple]="true" [options]="filter.selectValues"
+                                    [(ngModel)]="filter.filteredValue" (selected)="onSelected(filter, $event)"
+                                    (deselected)="onDeselected(filter,$event)"> </ng-select>
+                                <div class="mb-3 mt-3 text-center">
+                                    <div class="form-group d-inline mr-2">
+                                        <div class="radio d-inline">
+                                            <input type="radio" name="radio-in-1" id="radio-in-1" [attr.checked]="filter.condition  == 'includes' ? '' : null"
+                                                (change)="onConditionUpdate($event, filter)">
+                                            <label for="radio-in-1" class="cr">Includes</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group d-inline">
+                                        <div class="radio d-inline">
+                                            <input type="radio" name="radio-in-1" id="radio-in-2" [attr.checked]="filter.condition  == 'excludes' ? '' : null"
+                                                (change)="onConditionUpdate($event, filter)">
+                                            <label for="radio-in-2" class="cr">Excludes</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-center mt-3 pb-3" style="font-size:12px">{{filter.displayMsg}}</p>
+                            </div>
+
+                            <div *ngSwitchCase="'multidropdown'">
+                                <p-multiSelect [options]="filter.selectValues" [(ngModel)]="filter.filteredValue" class="dropdown-btn"
+                                    (ngModelChange)='onDropDownSelected(filter, $event)' appendTo="body" scrollHeight="150px"
+                                    dataKey="value" optionLabel="label"></p-multiSelect>
+                                <div class="mb-3 mt-3 text-center">
+                                    <div class="form-group d-inline mr-2">
+                                        <div class="radio d-inline">
+                                            <input type="radio" name="radio-in-1" id="radio-in-1" [attr.checked]="filter.condition  == 'includes' ? '' : null"
+                                                (change)="onConditionUpdate($event, filter)">
+                                            <label for="radio-in-1" class="cr">Includes</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group d-inline">
+                                        <div class="radio d-inline">
+                                            <input type="radio" name="radio-in-1" id="radio-in-2" [attr.checked]="filter.condition  == 'excludes' ? '' : null"
+                                                (change)="onConditionUpdate($event, filter)">
+                                            <label for="radio-in-2" class="cr">Excludes</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-center mt-3 pb-3" style="font-size:12px">{{filter.displayMsg}}</p>
+                            </div>
+
+
+                            <div *ngSwitchCase="'search'">
+                                <div class="mb-3 mt-3 text-center">
+                                    <div class="form-group d-inline mr-2">
+                                        <div class="radio d-inline">
+                                            <input type="radio" name="radio-in-1" id="radio-in-1" [attr.checked]="filter.condition  == 'includes' ? '' : null"
+                                                (change)="onConditionUpdate($event, filter)">
+                                            <label for="radio-in-1" class="cr">Includes</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group d-inline">
+                                        <div class="radio d-inline">
+                                            <input type="radio" name="radio-in-1" id="radio-in-2" [attr.checked]="filter.condition  == 'excludes' ? '' : null"
+                                                (change)="onConditionUpdate($event, filter)">
+                                            <label for="radio-in-2" class="cr">Excludes</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <tag-input [(ngModel)]="filter.filteredValue" placeholder="Enter here" [maxItems]="10"
+                                    [ripple]="true" [onlyFromAutocomplete]="true" [identifyBy]="'value'" [displayBy]="'label'">
+                                    <tag-input-dropdown [showDropdownIfEmpty]="false" [autocompleteItems]="filter.selectValues"
+                                        [identifyBy]="'value'" [displayBy]="'label'" minimumTextLength="1" limitItemsTo="10">
+                                    </tag-input-dropdown>
+                                </tag-input>
+                                <p class="text-center mt-3 pb-3" style="font-size:12px">{{filter.displayMsg}}</p>
+                            </div>
+                            <div *ngSwitchCase="'multitext'">
+                                <div class="mb-3 mt-3 text-center">
+                                    <div class="form-group d-inline mr-2">
+                                        <div class="radio d-inline">
+                                            <input type="radio" name="radio-in-1" id="radio-in-1" [attr.checked]="filter.condition  == 'includes' ? '' : null"
+                                                (change)="onConditionUpdate($event, filter)">
+                                            <label for="radio-in-1" class="cr">Includes</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group d-inline">
+                                        <div class="radio d-inline">
+                                            <input type="radio" name="radio-in-1" id="radio-in-2" [attr.checked]="filter.condition  == 'excludes' ? '' : null"
+                                                (change)="onConditionUpdate($event, filter)">
+                                            <label for="radio-in-2" class="cr">Excludes</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <tag-input [(ngModel)]="filter.filteredValue" placeholder="Enter here">
+                                </tag-input>
+                                <p class="text-center mt-3 pb-3" style="font-size:12px">{{filter.displayMsg}}</p>
+                            </div>
+                            <div *ngSwitchCase="'numberrange'">
+                                <input type="text" class="form-control" placeholder="Min" [(ngModel)]="filter.minValue">
+                                <p class="text-center mt-3" style="font-size:12px">And</p>
+                                <input type="text" class="form-control" placeholder="Max" [(ngModel)]="filter.maxValue">
+                                <p class="text-center mt-3" style="font-size:12px">{{filter.displayMsg}}</p>
+                            </div>
+                            <div *ngSwitchDefault>
+                                <p class="text-center" style="font-size:12px">{{filter.displayMsg}}</p>
+                                <p class="mt-3">From</p>
+                                <div class="form-group">
+                                    <input [textMask]="{mask: maskDateDash}" type="text" class="form-control" [ngClass]="{'is-invalid': !fromDate.valid && (fromDate.dirty || fromDate.touched )}"
+                                        placeholder="YYYY/MM/DD" [(ngModel)]="filter.fromDate" name="toDate" #fromDate="ngModel"
+                                        date />
+                                    <p class="error jquery-validation-error small form-text invalid-feedback" *ngIf="fromDate.errors?.date">Invalid
+                                        Date</p>
+                                </div>
+                                <p class="mt-3">To</p>
+                                <div class="form-group">
+                                    <input [textMask]="{mask: maskDateDash}" type="text" class="form-control" [ngClass]="{'is-invalid': !toDate.valid && (toDate.dirty || toDate.touched )}"
+                                        placeholder="YYYY/MM/DD" [(ngModel)]="filter.toDate" name="toDate" #toDate="ngModel"
+                                        date />
+                                    <p class="error jquery-validation-error small form-text invalid-feedback" *ngIf="toDate.errors?.date">Invalid
+                                        Date</p>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-panel>
+            </div>
+        </ngb-accordion>
+    </div>
+    <div class="card-footer text-center ">
+        <a href="javascript:" (click)="clearFilters()" class="f-16 p-0 m-0 btn" style="color:#1de1c2"><i class="feather icon-x mr-2"></i>Clear
+            Filters</a>
+    </div>
+</div>

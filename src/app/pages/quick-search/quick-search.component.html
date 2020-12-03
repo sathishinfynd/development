@@ -1,0 +1,25 @@
+<div class="search-component">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-10 col-xl-8 mr-auto ml-auto">
+            <div id="main-search" class="main-search open">
+                <h1 class="text-center title"><i class="feather icon-search mr-3 "></i>Quick Search</h1>
+                <p class="sub-title text-center">Search your company here. We have the best insights of all companies.
+                    Get enlightened!</p>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="m-search" [(ngModel)]="queryString" placeholder="Search . . .">
+                    <span class="input-group-append search-btn btn btn-primary" (click)="searchOn()">
+                        <i class="feather icon-search input-group-text"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-xl-6" *ngIf="queryString">
+            <app-search [queryString]="queryString" [api]="api.companies" (navigate)="onCompanyNavigate($event)"></app-search>
+        </div>
+
+        <div class="col-sm-12 col-md-6 col-xl-6" *ngIf="queryString">
+            <app-search [queryString]="queryString" [api]="api.people" (navigate)="onPeopleNavigate($event)"></app-search>
+        </div>
+
+    </div>
+</div>

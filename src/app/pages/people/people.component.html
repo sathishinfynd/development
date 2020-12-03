@@ -1,0 +1,258 @@
+<app-quicklinks [links]="links" *ngIf="allLoaded"></app-quicklinks>
+<div id="overview" class="row overview" #overviewSection>
+    <div class="col-md-6 col-xl-6">
+        <div class="card">
+            <div class="card-block border-bottom p-3">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-auto">
+                        <table class="table table-borderless m-0">
+                            <tr>
+                                <td style="width:60px;" class="p-0">
+                                    <img class="text-right " style="width:60px;" src="{{people.logo_url}}" alt="">
+                                </td>
+                                <td class="p-0">
+                                    <h5 class="mb-3 f-w-600 ml-3 text-uppercase" style="display: inline-block">{{people.name}}</h5>
+                                    <div class="ml-3">
+                                        <a href="{{people.facebook_url}}" target="_blank" *ngIf="people.facebook_url"><i
+                                                class="fab mr-3 fa-facebook text-primary f-18"></i></a>
+                                        <a href="{{people.twitter_url}}" target="_blank" *ngIf="people.twitter_url"><i
+                                                class="fab mr-3 fa-twitter text-c-blue f-18"></i></a>
+                                        <a href="{{people.linkedin_url}}" target="_blank" *ngIf="people.linkedin_url"><i
+                                                class="fab mr-3 fa-linkedin text-c-blue f-18"></i></a>
+                                        <a href="{{people.github_url}}" target="_blank" *ngIf="people.github_url"><i
+                                                class="fa mr-3 fa-github text-danger f-18"></i></a>
+                                    </div>
+                                </td>
+                                <!-- <td class="p-0 pt-2" style="width:140px;">
+                                    <div class=" text-right">
+                                        <button type="button" *ngIf="!this.following" class="btn btn-rounded btn-outline-success m-0 p-2 pr-3"
+                                            (click)="follow(people.id, people.name, people.logo_url, people.featured_job_title)"><i
+                                                class="feather icon-plus mr-2 f-18"></i>Follow<i class="fa fa-spinner fa-spin ml-2 mr-0"
+                                                *ngIf="followloading"></i></button>
+                                        <button type="button" *ngIf="this.following" class="btn btn-rounded btn-success m-0  p-2 pr-3"
+                                            (click)="unFollow(people.id)"><i class="feather icon-plus mr-2 f-18"></i>Unfollow<i
+                                                class="fa fa-spinner fa-spin ml-2 mr-0" *ngIf="followloading"></i></button>
+                                    </div>
+                                </td> -->
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body p-3">
+                <table class="table table-borderless m-0 Active-visitor">
+                    <tr>
+                        <td style="width: 100%; word-wrap: break-word; white-space: normal" class="p-0">
+                            <p>{{people.featured_job_title + ' at ' + people.featured_job_company_name || '-'}}</p>
+                        </td>
+                    </tr>
+
+                    <tr class="p-0">
+                        <td class="p-0">
+                            <p> <i class="fa mr-2 fa-map-marker text-c-green f-18"></i> {{people.address_1 ||
+                                people.city + ',' + people.region || people.country }} <br>
+                                <span class="pl-2" style="margin-left: 18px" *ngIf="people.city">{{people.city + ','}}
+                                    <span *ngIf="people.city">{{people.region}} </span></span><br><span class="pl-2"
+                                    style="margin-left: 18px"> {{people.country}} </span> </p>
+                        </td>
+                    </tr>
+                    <tr class="p-0 pl-3 pr-3 pb-3 row">
+                        <div class="p-0 col-sm-3"><i class="fa mr-2 fa-address-book text-c-green f-18"></i><span class="text-muted">Contact</span></div>
+                        <div class="p-0 col-sm-9"><p class="mb-0" *ngIf="people.purchased">
+                            <span *ngIf="people.phone || people.phone != ''">
+                                <i class="fa mr-2 ml-2 fa-phone text-secondary f-16"></i>{{people.phone}}
+                            </span>
+                            <span *ngIf="people.email || people.email != ''">
+                                <i class="fa mr-2 ml-2 fa-envelope text-secondary f-16"></i>
+                                <span>{{people.email}}</span>
+                            </span>
+                        </p>
+                        <p class="mb-0" *ngIf="(!people.purchased) && (people.phone == '1' || people.email == '1')">
+                            <a href="javascript:" (click)="onUnlock([people], false, 'PEOPLE')">
+                                <i class="fa mr-2 fa-key text-secondary f-16"></i>
+                                Unlock
+                            </a>
+                        </p></div>
+                    </tr>
+                    <!-- <tr class="p-0 pl-3 pr-3 pb-3 row">
+                        <div class="p-0 col-sm-3"><span class="text-muted">Birth Date</span></div>
+                        <div class="p-0 col-sm-9"><span>{{ (people.birth_date | date:'dd-MM-yyyy') || '-'}}</span></div>
+                    </tr>
+                    <tr class="p-0 pl-3 pr-3 pb-3 row">
+                        <div class="p-0 col-sm-3"><span class="text-muted">Salary</span></div>
+                        <div class="p-0 col-sm-9">
+                            <span class="mb-1 badge p-1 pl-2 pr-2 f-10 shadow-1 badge-pill theme-bg2 text-white text-uppercase">{{people.status || 'unknown'}}</span>
+                        </div>
+                    </tr> -->
+                    <tr>
+                        <td style="width: 50%; word-wrap: break-word; white-space: normal" class="p-0">
+                            <p><span *ngFor="let interest of people.splitInterests; index as i" class="mb-1 badge p-1 pl-2 pr-2 mr-2 f-10 shadow-1 badge-pill theme-bg text-white text-uppercase">{{interest}}</span></p>
+                        </td>
+                        <td style="width: 50%; word-wrap: break-word; white-space: normal" class="p-0">
+                            <p><span *ngFor="let skill of people.splitSkills; index as i" class="mb-1 badge p-1 pl-2 pr-2 mr-2 f-10 shadow-1 badge-pill theme-bg2 text-white text-uppercase">{{skill}}</span></p>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-6">
+        <div class="card">
+            <div class="card-block border-bottom p-3">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-auto">
+                        <table class="table table-borderless m-0">
+                            <tr>
+                                <td style="width:60px;" class="p-0">
+                                    <a href="javascript:" (click)="onCompanySelected({name: company.permalink})">
+                                        <img class="text-right " style="width:60px;" src="{{company.logo_url}}" alt="">
+                                    </a>
+
+                                </td>
+                                <td class="p-0">
+                                    <a href="javascript:" (click)="onCompanySelected({name: company.permalink})">
+                                        <h5 class="mb-3 f-w-600 ml-3 text-uppercase" style="display: inline-block">{{company.name}}</h5>
+                                    </a>
+                                    <div class="ml-3">
+                                        <a href="{{company.facebook_url}}" target="_blank" *ngIf="company.facebook_url"><i
+                                                class="fab fa-facebook mr-3 text-primary f-18"></i></a>
+                                        <a href="{{company.twitter_url}}" target="_blank" *ngIf="company.twitter_url"><i
+                                                class="fab mr-3 fa-twitter text-c-blue f-18"></i></a>
+                                        <a href="{{company.linkedin_url}}" target="_blank" *ngIf="company.linkedin_url"><i
+                                                class="fab mr-3 fa-linkedin text-c-blue f-18"></i></a>
+                                        <a href="{{company.homepage_url}}" target="_blank" *ngIf="company.homepage_url"><i
+                                                class="fa fa-globe text-danger f-18"></i></a>
+                                    </div>
+                                </td>
+
+                                <!-- <td class="p-0 pt-2" style="width:140px;">
+                                    <div class=" text-right">
+                                        <button type="button" *ngIf="!this.following" class="btn btn-rounded btn-outline-success m-0 p-2 pr-3"
+                                            (click)="follow(company.id, company.name, company.logo_url, company.short_description)"><i
+                                                class="feather icon-plus mr-2 f-18"></i>Follow<i class="fa fa-spinner fa-spin ml-2 mr-0"
+                                                *ngIf="followloading"></i></button>
+                                        <button type="button" *ngIf="this.following" class="btn btn-rounded btn-success m-0  p-2 pr-3"
+                                            (click)="unFollow(company.id)"><i class="feather icon-plus mr-2 f-18"></i>Unfollow<i
+                                                class="fa fa-spinner fa-spin ml-2 mr-0" *ngIf="followloading"></i></button>
+                                    </div>
+                                </td> -->
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body p-3">
+                <table class="table table-borderless m-0 Active-visitor">
+                    <tr>
+                        <td style="width: 100%; word-wrap: break-word; white-space: normal" class="p-0">
+                            <p>{{company.short_description || 'No description found about the company'}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 100%; word-wrap: break-word; white-space: normal" class="p-0 ">
+                            <p><span *ngFor="let industry of company.industries; index as i" class="mb-1 badge p-1 pl-2 pr-2 mr-2 f-10 shadow-1 badge-pill theme-bg text-white text-uppercase industries">{{industry}}</span></p>
+                        </td>
+                    </tr>
+                    <tr class="p-0">
+                        <td class="p-0">
+                            <p> <i class="fa mr-2 fa-map-marker text-c-green f-18"></i> {{company.address_1 ||
+                                company.city + ',' + company.region || company.country }} <br>
+                                <span class="pl-2" style="margin-left: 18px" *ngIf="company.city">{{company.city +
+                                    ','}} <span *ngIf="company.city">{{company.region}} </span></span><br><span class="pl-2"
+                                    style="margin-left: 18px"> {{company.country}} </span> </p>
+                        </td>
+                    </tr>
+                    <tr class="p-0 pl-3 pr-3 pb-3 row">
+                        <div class="p-0 col-sm-3"><i class="fa mr-2 fa-address-book text-c-green f-18"></i><span class="text-muted">Contact</span></div>
+                        <div class="p-0 col-sm-9"><p class="mb-0" *ngIf="company.purchased">
+                            <span *ngIf="company.phone || company.phone != ''">
+                                <i class="fa mr-2 ml-2 fa-phone text-secondary f-16"></i>{{company.phone}}
+                            </span>
+                            <span *ngIf="company.email || company.email != ''">
+                                <i class="fa mr-2 ml-2 fa-envelope text-secondary f-16"></i>
+                                <span>{{company.email}}</span>
+                            </span>
+                        </p>
+                        <p class="mb-0" *ngIf="(!company.purchased) && (company.phone == '1' || company.email == '1')">
+                            <a href="javascript:" (click)="onUnlock([company], false, 'COMPANY')">
+                                <i class="fa mr-2 fa-key text-secondary f-16"></i>
+                                Unlock
+                            </a>
+                        </p></div>
+                    </tr>
+                    <tr class="p-0 pl-3 pr-3 pb-3 row">
+                        <div class="p-0 col-sm-3"><span class="text-muted">Founded On</span></div>
+                        <div class="p-0 col-sm-9"><span>{{ (company.founded_dt | date:'dd-MM-yyyy') || '-'}}</span></div>
+                    </tr>
+                    <tr class="p-0 pl-3 pr-3 pb-3 row">
+                        <div class="p-0 col-sm-3"><span class="text-muted">Status</span></div>
+                        <div class="p-0 col-sm-9">
+                            <span *ngIf="company.status == 'acquired'" class="mb-1 badge p-1 pl-2 pr-2 f-10 shadow-1 badge-pill theme-bg text-white text-uppercase">{{company.status
+                                || 'unknown'}}</span>
+                            <span *ngIf="company.status == 'operating'" class="mb-1 badge p-1 pl-2 pr-2 f-10 shadow-1 badge-pill theme-bg2 text-white text-uppercase">{{company.status
+                                || 'unknown'}}</span>
+                            <span *ngIf="company.status == 'closed'" class="mb-1 badge p-1 pl-2 pr-2 f-10 shadow-1 badge-pill theme-bg4 text-white text-uppercase">{{company.status
+                                || 'unknown'}}</span>
+                            <span *ngIf="company.status == 'ipo'" class="mb-1 badge p-1 pl-2 pr-2 f-10 shadow-1 badge-pill theme-bg3 text-white text-uppercase">{{company.status
+                                || 'unknown'}}</span>
+                        </div>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="colleagues" class="row mt-3" *ngIf="peoplepayload && !noemployeedata">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12 mb-3">
+        <h4 class="text-uppercase">Colleagues</h4>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12 mb-3">
+        <div class="toolbar" *ngIf="!noemployeedata">
+            <app-toolbar showCredit="true" showColumnToggle="false" showFilters="false" (downloadClicked)="OnDownloadClicked($event)"></app-toolbar>
+        </div>
+        <app-table [conf]="api.colleagues" [filter]="peoplepayload" type="PEOPLE" (navigate)="onPersonSelected($event)"
+            (norecords)="OnNoEmployeeData()" [msg]="'No recent Employee details found related to ' + company.name"></app-table>
+    </div>
+</div>
+<div id="experience" class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12 mb-3">
+        <h4 class="text-uppercase">Experience</h4>
+    </div>
+    <div class="col-md-12 col-xl-12" *ngIf="people.id">
+        <app-timeline [api]="api.experience" (navigate)="onCompanySelected($event)"></app-timeline>
+    </div>
+</div>
+
+<div id="education" class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12 mb-3">
+        <h4 class="text-uppercase">Education</h4>
+    </div>
+    <div class="col-md-12 col-xl-12" *ngIf="people.id">
+        <app-search [queryString]="people.id" [api]="api.education" [msg]="'No education details found related to ' + people.name"></app-search>
+    </div>
+</div>
+
+<div class="row" id="investment" *ngIf="investmentpayload && !noinvestmentdata">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12 mb-3">
+        <h4 class="text-uppercase">Investment</h4>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12 mb-3" *ngIf="investmentpayload">
+        <app-table [conf]="api.investment" [filter]="investmentpayload" type="INVESTMENT" (navigate)="onCompanySelected($event)"
+            (norecords)="OnNoInvestmentData()" [msg]="'No recent Investment details found related to ' + people.name"></app-table>
+    </div>
+</div>
+
+<div class="row twitter" id="twitter" #twitterSection>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12 mb-3">
+        <h4 class="text-uppercase">Social Feed</h4>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-8 col-xl-8 mb-3" *ngIf="people.twitter_url">
+        <ngx-twitter-timeline [data]="{sourceType: 'url', url: people.twitter_url}" [opts]="{tweetLimit: 5, theme: 'noheader '}"></ngx-twitter-timeline>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-xl-4 mb-3 fb-container" *ngIf="people.facebook_url">
+        <a class="fb-page" data-href="{{people.facebook_url}}" data-adapt-container-width="true" data-tabs="timeline" data-width="" data-height="1000" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></a>
+    </div>
+</div>

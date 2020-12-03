@@ -1,0 +1,95 @@
+<div class="row justify-content-md-center">
+    <div class="col-md-12 col-xl-12">
+        <h1 class="text-center title"><i class="feather icon-user mr-3 "></i>EDIT PROFILE</h1>
+    </div>
+    <div class="col-sm-12 col-md-7 col-xl-7 ">
+        <div class="card mb-0 shadow-2">
+            <div class="card-block p-20">
+                <form #validationForm="ngForm" class="editForm" novalidate>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="validation-firstname-required"
+                                    placeholder="First Name" [ngClass]="{'is-invalid': !firstName.valid && (firstName.dirty || firstName.touched || isSubmit)}"
+                                    #firstName="ngModel"  [(ngModel)]="formInput.firstName">
+                                <label *ngIf="!firstName.valid && (firstName.dirty || firstName.touched || isSubmit)"
+                                    id="validation-firstname-error" class="error text-left jquery-validation-error small form-text invalid-feedback">Please
+                                    enter
+                                    first
+                                    name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="validation-lastname-required" placeholder="Last Name"
+                                    [ngClass]="{'is-invalid': !lastName.valid && (lastName.dirty || lastName.touched || isSubmit)}"
+                                    #lastName="ngModel"  [(ngModel)]="formInput.lastName">
+                                <label *ngIf="!lastName.valid && (lastName.dirty || lastName.touched || isSubmit)" id="validation-lastname-error"
+                                    class="error text-left jquery-validation-error small form-text invalid-feedback">Please
+                                    enter
+                                    last name</label>
+                            </div>
+                        </div>
+                        <!--<div class="col-md-12">
+                            <div class="form-group">
+                                <input class="form-control input-md" id="email" name="email" type="text" placeholder="Email"
+                                    [ngClass]="{'is-invalid': !email.valid && (email.dirty || email.touched || isSubmit)}"
+                                    #email="ngModel" required email [(ngModel)]="formInput.email">
+                                <label *ngIf="!email.valid && (email.dirty || email.touched || isSubmit)" id="validation-email-error"
+                                    class="text-left error jquery-validation-error small form-text invalid-feedback">Please
+                                    enter
+                                    a valid
+                                    email address.</label>
+                            </div>
+                        </div>-->
+                        
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="business-name" placeholder="Business Name"
+                                    [(ngModel)]="formInput.businessName">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group text-left">
+                                <label class="form-label">Job Title / Role</label>
+                                <select class="form-control" name="validation-jobRole" [ngClass]="{'is-invalid': !jobRole.valid && (jobRole.dirty || jobRole.touched || isSubmit)}"
+                                    #jobRole="ngModel" [(ngModel)]="formInput.jobRole">
+                                    <option value>Select</option>
+                                    <option value="CEO/Founder/President">CEO/Founder/President</option>
+                                    <option value="Customer Success">Customer Success</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Private Equity">Private Equity</option>
+                                    <option value="Product">Product</option>
+                                    <option value="Sales">Sales</option>
+                                    <option value="Sales Management">Sales Management</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <label *ngIf="!jobRole.valid && (jobRole.dirty || jobRole.touched || isSubmit)" id="validation-jobRole-error"
+                                    class="error jquery-validation-error small form-text invalid-feedback">Please
+                                    select job title.</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <international-phone-number name="validation-phone" [ngClass]="{'is-invalid': !phone.valid && (phone.dirty || phone.touched || isSubmit)}"
+                                    [(ngModel)]="formInput.phone" placeholder="Enter phone number" [maxlength]="20"
+                                    [defaultCountry]="'gb'" [locale]="'en'" #phone="ngModel"></international-phone-number>
+                                <label *ngIf="!phone.valid && (phone.dirty || phone.touched || isSubmit)" id="validation-phone-error"
+                                    class="text-left error jquery-validation-error small form-text invalid-feedback">Please
+                                    enter
+                                    valid
+                                    contact number.</label>
+                            </div>
+                        </div>
+                    </div>
+                    <p *ngIf="errorMsg" class="text-center">{{errorMsg}}</p>
+                    <div class="form-group text-center">
+                        <button type="button" class="btn btn-primary btn-raised shadow-2 pr-5 pl-5" (click)="save(validationForm)">
+                            Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

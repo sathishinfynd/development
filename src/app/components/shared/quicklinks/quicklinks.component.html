@@ -1,0 +1,11 @@
+<div class="quicklinks">
+    <div class="theme-bg gradiant-row"></div>
+    <div class="card theme-bg shadow-2">
+        <ul class="quicklink-bar p-0">
+            <li *ngFor="let link of links; let i = index" class="quicklink-item" [class.active]="currentActiveTab === i" >
+                    <a href="javascript:" [ngx-scroll-to-offset]="-100" [ngx-scroll-to]="link.dest"><i *ngIf="link.icon" [class]="link.icon + ' mr-3 quickicon'"></i><span class="mobile-none">{{link.text}}</span></a>
+            </li>
+        </ul>
+        
+    </div>
+</div>

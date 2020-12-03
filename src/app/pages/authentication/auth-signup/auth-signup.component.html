@@ -1,0 +1,168 @@
+<div class="auth-wrapper">
+  <div class="auth-content signup">
+    <div class="auth-bg">
+      <span class="r"></span>
+      <span class="r s"></span>
+      <span class="r s"></span>
+      <span class="r"></span>
+    </div>
+    <div class="card">
+      <div class="card-body text-center">
+        <div class="mb-4">
+          <i class="feather icon-user-plus auth-icon"></i>
+        </div>
+        <h3 class="mb-4">Sign up</h3>
+        <aw-wizard #wizard class="arc-wizard" navBarLayout="large-filled-symbols">
+          <aw-wizard-step stepTitle="Profile" [navigationSymbol]="{ symbol: '&#xe8e9;', fontFamily: 'feather' }"
+            [style.font-weight]="900">
+            <div class="row">
+              <div class="col-sm-12 pl-5 pr-5">
+                <h5 class="mb-3">Basic details</h5>
+                <form #validationForm="ngForm" class="editForm" novalidate>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="text" class="form-control" name="validation-firstname-required" placeholder="First Name"
+                          [ngClass]="{'is-invalid': !firstName.valid && (firstName.dirty || firstName.touched || isSubmit)}"
+                          #firstName="ngModel" required [(ngModel)]="formInput.firstName">
+                        <label *ngIf="!firstName.valid && (firstName.dirty || firstName.touched || isSubmit)" id="validation-firstname-error"
+                          class="error text-left jquery-validation-error small form-text invalid-feedback">Please enter
+                          first
+                          name</label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="text" class="form-control" name="validation-lastname-required" placeholder="Last Name"
+                          [ngClass]="{'is-invalid': !lastName.valid && (lastName.dirty || lastName.touched || isSubmit)}"
+                          #lastName="ngModel" required [(ngModel)]="formInput.lastName">
+                        <label *ngIf="!lastName.valid && (lastName.dirty || lastName.touched || isSubmit)" id="validation-lastname-error"
+                          class="error text-left jquery-validation-error small form-text invalid-feedback">Please enter
+                          last name</label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input class="form-control input-md" id="email" name="email" type="text" placeholder="Email"
+                          [ngClass]="{'is-invalid': !email.valid && (email.dirty || email.touched || isSubmit)}" #email="ngModel"
+                          required email [(ngModel)]="formInput.email">
+                        <label *ngIf="!email.valid && (email.dirty || email.touched || isSubmit)" id="validation-email-error"
+                          class="text-left error jquery-validation-error small form-text invalid-feedback">Please enter
+                          a valid
+                          email address.</label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="password" pattern='(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}' class="form-control" name="validation-password" placeholder="Password"
+                          [ngClass]="{'is-invalid': !password.valid && (password.dirty || password.touched || isSubmit)}"
+                          #password="ngModel" minlength="8" required [(ngModel)]="formInput.password">
+                        <label *ngIf="!password.valid && (password.dirty || password.touched || isSubmit)" id="validation-password-error"
+                          class="text-left error jquery-validation-error small form-text invalid-feedback">Please enter
+                          a valid
+                          password.(Minimun 8 Characters consisting atleast 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character)</label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="password" class="form-control" name="validation-password-confirm" placeholder="Confirm Password"
+                          [ngClass]="{'is-invalid': !confirmPassword.valid && (confirmPassword.dirty || confirmPassword.touched || isSubmit)}"
+                          #confirmPassword="ngModel" [equalTo]="password" [(ngModel)]="formInput.confirmPassword">
+                        <label *ngIf="!confirmPassword.valid && (confirmPassword.dirty || confirmPassword.touched || isSubmit)"
+                          id="validation-password-confirm-error" class="text-left error jquery-validation-error small form-text invalid-feedback">Please
+                          enter a valid confirm password.</label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="text" class="form-control" name="business-name" placeholder="Business Name"
+                          [(ngModel)]="formInput.businessName">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group text-left">
+                        <label class="form-label">Job Title / Role</label>
+                        <select class="form-control" name="validation-jobRole" [ngClass]="{'is-invalid': !jobRole.valid && (jobRole.dirty || jobRole.touched || isSubmit)}"
+                          #jobRole="ngModel" required [(ngModel)]="formInput.jobRole">
+                          <option value>Select</option>
+                          <option value="CEO/Founder/President">CEO/Founder/President</option>
+                          <option value="Customer Success">Customer Success</option>
+                          <option value="Engineering">Engineering</option>
+                          <option value="Marketing">Marketing</option>
+                          <option value="Private Equity">Private Equity</option>
+                          <option value="Product">Product</option>
+                          <option value="Sales">Sales</option>
+                          <option value="Sales Management">Sales Management</option>
+                          <option value="Other">Other</option>
+                        </select>
+                        <label *ngIf="!jobRole.valid && (jobRole.dirty || jobRole.touched || isSubmit)" id="validation-jobRole-error" class="error jquery-validation-error small form-text invalid-feedback">Please
+                          select job title.</label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <international-phone-number name="validation-phone" [ngClass]="{'is-invalid': !phone.valid && (phone.dirty || phone.touched || isSubmit)}"
+                          [(ngModel)]="formInput.phone" placeholder="Enter phone number" [maxlength]="20"
+                          [defaultCountry]="'gb'" [locale]="'en'" [required]="true" #phone="ngModel"></international-phone-number>
+                        <label *ngIf="!phone.valid && (phone.dirty || phone.touched || isSubmit)" id="validation-phone-error"
+                          class="text-left error jquery-validation-error small form-text invalid-feedback">Please enter
+                          valid
+                          contact number.</label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group text-center">
+                        <div class="checkbox checkbox-fill d-inline" [ngClass]="{'is-invalid': !formInput.consent && isSubmit}">
+                          <input type="checkbox" name="checkbox-fill-2" id="checkbox-fill-2" [(ngModel)]="formInput.consent">
+                          <label for="checkbox-fill-2" class="cr">I agree to <a href="https://bizseg.com/terms-conditions/">terms and conditions</a></label>
+                        </div>
+                        <label *ngIf="(!formInput.consent)" id="validation-consent-error" class="text-center error jquery-validation-error small form-text invalid-feedback">Please
+                          agree to terms and conditions</label>
+                      </div>
+                    </div>
+                  </div>
+                  <p *ngIf="errorMsg" class="text-center is-invalid error jquery-validation-error small form-text invalid-feedback">{{errorMsg}}</p>
+                  <div class="form-group text-center">
+                    <button type="button" uiSref="work" class="btn btn-primary btn-raised shadow-2" (click)="save(validationForm)">
+                      Next <span style="margin-left:10px;"><i class="feather icon-chevron-right"></i></span></button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </aw-wizard-step>
+          <aw-wizard-step stepTitle="Subscription" [navigationSymbol]="{ symbol: '&#xe88c;', fontFamily: 'feather' }"
+            [style.font-weight]="900">
+
+            <app-subscription [user]="user" [email]="formInput.email" (goToNext)="onGoToNext($event)"></app-subscription>
+            <div class="row">
+              <div class="col-sm-12 mt-3 centered-content">
+                <div class="btn-group mt-10">
+                  <button type="button" class="btn btn-secondary btn-sm shadow-2" awPreviousStep><span style="margin-right:10px;"><i
+                        class="feather icon-chevron-left"></i></span> Back</button>
+                  <button type="button" class="btn btn-primary btn-sm shadow-2" [disabled]='!moveToCompleted' awNextStep>Next<span style="margin-left:10px;"><i
+                        class="feather icon-chevron-right"></i></span></button>
+                </div>
+              </div>
+            </div>
+          </aw-wizard-step>
+          <aw-wizard-step stepTitle="Confirmation" [navigationSymbol]="{ symbol: '&#xe840;', fontFamily: 'feather' }">
+            <div class="row">
+              <div class="col-sm-12">
+                <h5>Thank you.</h5>
+                <hr>
+                <h6 class="mt-3">We have sent a verification link to your email address.</h6>
+                <p>Please click on the verification link to start using our site</p>
+              </div>
+              <div class="col-sm-12 centered-content">
+                <div class="btn-group mt-10">
+                  <button type="button" class="btn btn-success btn-sm shadow-2" [routerLink]="['/quick-search']">Finished</button>
+                </div>
+              </div>
+            </div>
+          </aw-wizard-step>
+        </aw-wizard>
+        <p class="mt-3 text-muted">Already have an account? <a [routerLink]="['/auth/signin']"> Log in</a></p>
+      </div>
+    </div>
+  </div>
+</div>

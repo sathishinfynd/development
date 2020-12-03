@@ -1,0 +1,149 @@
+<div class="card" *ngIf="!result.totalRecords">
+    <div class="card-body">
+        <h6 class="text-left m-0">{{msg}}</h6>
+    </div>
+</div>
+<div class="card" *ngIf="result.totalRecords">
+    <div class="card-body p-0">
+        <p-table [columns]="visibleColumns" [(value)]="result.data" [frozenColumns]="api.frozenCols" frozenWidth="250px" [(selection)]="selectedData"
+            [rows]="api.size" paginatorPosition="top" (onLazyLoad)="onPageNavigation($event)" [resizableColumns]="true"
+            [lazy]="true" columnResizeMode="expand" [showCurrentPageReport]="true" resetPageOnSort="true" (onPage)="paginate($event)"
+            [first]="first" [currentPageReportTemplate]="result.totalRecords == '10000'? 'Showing {first} to {last} of 10000+ records': 'Showing {first} to {last} of '+result.totalRecords+' records'"
+            [totalRecords]="result.totalRecords" [paginator]="true" class="customTableStyle" [scrollable]="true"
+            [style]="{width:'100%'}">
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col style="width: 50px" *ngIf="checkFrozenColumnExists(columns)">
+                    <col *ngFor="let col of columns" [style.width]="col.width">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th style="width: 50px" *ngIf="checkFrozenColumnExists(columns)">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.prop" pResizableColumn style="font-size:14px; text-transform: capitalize">
+                        {{col.name}}
+                        <p-sortIcon [field]="col.prop" *ngIf="col.prop != 'logo_url'"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                <tr>
+                    <td *ngIf="checkFrozenColumnExists(columns)">
+                        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                    </td>
+                    <td *ngFor="let col of columns" class="ui-resizable-column">
+                        <div [ngSwitch]="col.prop" style="overflow: hidden">
+                            <div *ngSwitchCase="'logo_url'">
+                                <img class="text-right" style="width:40px;" src="{{rowData[col.prop]}}" alt="{{rowData['name']}}">
+                            </div>
+                            <div *ngSwitchCase="'name'">
+                                <img class="text-right mr-3" style="width:24px;height:24px; float:left;" src="{{rowData['logo_url']}}"
+                                    alt="{{rowData['name']}}">
+                                <a href="javascript:" (click)="onNavigate(rowData.permalink, rowData.id)" style="vertical-align: middle"><span>{{rowData[col.prop]}}</span></a>
+                                <!--<p class="f-10 mb-2">{{rowData['short_description']}}</p>-->
+                            </div>
+                            <div *ngSwitchCase="'acquiree_name'">
+                                <img class="text-right mr-3" style="width:24px;height:24px; float:left;" src="{{rowData['acquiree_logo_url']}}"
+                                alt="{{rowData['acquiree_name']}}">                                
+                                <a href="javascript:" (click)="onNavigate(rowData['acquiree_permalink'], rowData['acquiree_id'])"
+                                    style="vertical-align: middle"><span>{{rowData[col.prop]}}</span></a>
+                                <!--<p class="f-10 mb-2">{{rowData['short_description']}}</p>-->
+                            </div>
+                            <div *ngSwitchCase="'acquirer_name'">
+                                <img class="text-right mr-3" style="width:24px;height:24px; float:left;" src="{{rowData['acquirer_logo_url']}}"
+                                alt="{{rowData['acquirer_name']}}">                                
+                                <a href="javascript:" (click)="onNavigate(rowData['acquirer_permalink'], rowData['acquirer_id'])"
+                                    style="vertical-align: middle"><span>{{rowData[col.prop]}}</span></a>
+                                <!--<p class="f-10 mb-2">{{rowData['short_description']}}</p>-->
+                            </div>
+                            <div *ngSwitchCase="'investor_name'">
+                                <img class="text-right mr-3" style="width:24px;height:24px; float:left;" src="{{rowData['investor_logo_url']}}"
+                                alt="{{rowData['investor_name']}}">                                
+                                <a href="javascript:" (click)="onNavigate(rowData['investor_permalink'], rowData['investor_id'])"
+                                    style="vertical-align: middle"><span>{{rowData[col.prop]}}</span></a>
+                                <!--<p class="f-10 mb-2">{{rowData['short_description']}}</p>-->
+                            </div>
+                            <div *ngSwitchCase="'first_name'">
+                                <img class="text-right mr-3" style="width:24px;height:24px; float:left;" src="{{rowData['logo_url']}}"
+                                    alt="{{rowData['first_name']}}">
+                                <a href="javascript:" (click)="onNavigate(rowData.permalink, rowData.id)" style="vertical-align: middle"><span>{{rowData[col.prop]}}
+                                        {{rowData['last_name']}}</span></a>
+                                <!--<p class="f-10 mb-2">{{rowData['short_description']}}</p>-->
+                            </div>
+                            <div *ngSwitchCase="'featured_job_company_name'">
+                                <a href="javascript:" (click)="onNavigate(rowData.features_company_permalink, rowData.id)" style="vertical-align: middle"><span>
+                                    {{rowData[col.prop]}}</span></a>
+                                <!--<p class="f-10 mb-2">{{rowData['short_description']}}</p>-->
+                            </div>
+                            <div *ngSwitchCase="'city'">
+                                <p class="mb-0" *ngIf="rowData[col.prop]">{{rowData[col.prop]}},
+                                    {{rowData['country']}}</p>
+                                <!-- <p class="mb-2"></p> -->
+                            </div>
+                            <div *ngSwitchCase="'address_1'">
+                                <p class="mb-0" *ngIf="rowData[col.prop]">
+                                    <i class="fa mr-2 fa-map-marker text-secondary f-16"></i>
+                                    <span *ngIf="rowData.address_1">{{rowData.address_1}},</span>
+                                    <span *ngIf="rowData.city">{{rowData.city}},</span>
+                                    <span *ngIf="rowData.region">{{rowData.region}},</span>
+                                    <span *ngIf="rowData.country">{{rowData.country}},</span>
+                                </p>
+                                <!-- <p class="mb-2"></p> -->
+                            </div>
+                            <div *ngSwitchCase="'facebook_url'">
+                                <p class="mb-0">
+                                    <a *ngIf="rowData.facebook_url" href="{{rowData.facebook_url}}" target="_blank" ><i class="fab mr-3 fa-facebook text-primary f-18"></i></a>
+                                    <a *ngIf="rowData.twitter_url" href="{{rowData.twitter_url}}" target="_blank" ><i class="fab mr-3 fa-twitter text-c-blue f-18"></i></a>
+                                    <a *ngIf="rowData.linkedin_url" href="{{rowData.linkedin_url}}" target="_blank" ><i class="fab mr-3 fa-linkedin text-c-blue f-18"></i></a>
+                                    <a *ngIf="rowData.homepage_url" href="{{rowData.homepage_url}}" target="_blank" ><i class="fa mr-3 fa-globe text-danger f-18"></i></a>
+                                    <a *ngIf="rowData.homepage_url" href="{{rowData.github_url}}" target="_blank" ><i class="fa mr-3 fa-github text-danger f-18"></i></a>
+                                </p>
+                                <!-- <p class="mb-2"></p> -->
+                            </div>
+                            <div *ngSwitchCase="isDateColumn(col.prop)">
+                                <p class="mb-0">{{rowData[col.prop] | date:'yyyy-MM-dd'}}</p>
+                                <!-- <p class="mb-2"></p> -->
+                            </div>
+                            <div *ngSwitchCase="isAmountColumn(col.prop)">
+                                <p class="mb-0">{{rowData[col.prop] | currency}}</p>
+                                <!-- <p class="mb-2"></p> -->
+                            </div>
+                            <div *ngSwitchCase="isForiegnCurrencyColumn(col.prop)">
+                                    <p class="mb-0">{{rowData[col.prop] | currency:rowData[col.prop+'_ccode']}}</p>
+                                    <!-- <p class="mb-2"></p> -->
+                                </div>
+                            <div *ngSwitchCase="'phone'">
+                                <p class="mb-0" *ngIf="rowData.purchased">
+                                    <span *ngIf="rowData.phone || rowData.phone != ''">
+                                        <i class="fa mr-2 ml-2 fa-phone text-secondary f-16"></i>{{rowData.phone}}
+                                    </span>
+                                    <span *ngIf="rowData.email || rowData.email != ''">
+                                        <i class="fa mr-2 ml-2 fa-envelope text-secondary f-16"></i>
+                                        <span>{{rowData.email}}</span>
+                                    </span>
+                                </p>
+                                <p class="mb-0" *ngIf="(!rowData.purchased) && (rowData.phone == '1' || rowData.email == '1')">
+                                    <a href="javascript:" (click)="onUnlock([rowData], false)">
+                                        <i class="fa mr-2 fa-key text-secondary f-16"></i>
+                                        Unlock
+                                    </a>
+                                </p>
+                                <!-- <p class="mb-2"></p> -->
+                            </div>
+
+                            <div *ngSwitchCase="'status'">
+                                <p *ngIf="rowData[col.prop] == 'acquired'" class="mb-1 badge p-1 pl-2 pr-2 f-10  badge-pill theme-bg2 text-white text-uppercase">{{rowData[col.prop]}}</p>
+                                <p *ngIf="rowData[col.prop] == 'operating'" class="mb-1 badge p-1 pl-2 pr-2 f-10  badge-pill theme-bg text-white text-uppercase">{{rowData[col.prop]}}</p>
+                                <p *ngIf="rowData[col.prop] == 'closed'" class="mb-1 badge p-1 pl-2 pr-2 f-10  badge-pill theme-bg4 text-white text-uppercase">{{rowData[col.prop]}}</p>
+                                <p *ngIf="rowData[col.prop] == 'ipo'" class="mb-1 badge p-1 pl-2 pr-2 f-10 badge-pill theme-bg3 text-white text-uppercase">{{rowData[col.prop]}}</p>
+                            </div>
+                            <p *ngSwitchDefault class="mb-0">{{rowData[col.prop]}}</p>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

@@ -1,0 +1,279 @@
+{
+    "datasource": [
+        {
+            "index": 1,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 7293 },
+                "type": "aws"
+            }
+        },
+        {
+            "index": 2,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 1 },
+                "type": "aws"
+            }
+        },
+        {
+            "index": 3,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 2 },
+                "type": "aws"
+            }
+        },
+        {
+            "index": 6,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 1 },
+                "type": "aws"
+            }
+        },
+        {
+            "index": 7,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 4239 },
+                "type": "aws"
+            }
+        },
+        {
+            "index": 8,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 8429 },
+                "type": "aws"
+            }
+        },
+        {
+            "index": 9,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 4023 },
+                "type": "aws"
+            }
+        },
+        {
+            "index": 14,
+            "targetField": "selectValues",
+            "source": {
+                "service": "/getmetadata",
+                "payload": { "id" : 7777, "params": ["people"] },
+                "type": "aws_user"
+            }
+        }
+    ],
+    "filters": [
+        {
+            "displayText": "Name",
+            "displayMsg": "Please enter the people name here. You can either include/exclude people matching the name you entered",
+            "field": "name",
+            "type": "multitext",
+            "selectValues": [],
+            "filteredValue": "",
+            "matchtype": "match_phrase",
+            "filteredText": [],
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },
+        {
+            "displayText": "Job title",
+            "displayMsg": "Please select the desired range. You can either include/exclude the people that fall in the range",
+            "field": "featured_job_title",
+            "type": "multitext",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },        
+        {
+            "displayText": "Location",
+            "displayMsg": "Please select any location from the list. You can either include/exclude companies that operate in the selected location will be filtered",
+            "field": "location",
+            "type": "search",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": true,
+            "splitColumns": ["city","country"]
+        },        
+        {
+            "displayText": "Country",
+            "displayMsg": "Please select any country from the list. You can either include/exclude companies that operate in the selected location will be filtered",
+            "field": "country",
+            "type": "search",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": true,
+            "splitColumns": ["country","continent"]
+        },
+        {
+            "displayText": "Company",
+            "displayMsg": "Please enter the people name here. You can either include/exclude people matching the name you entered",
+            "field": "featured_job_company_name",
+            "type": "multitext",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },
+        {
+            "displayText": "Seniority",
+            "displayMsg": "Please select the desired seniority level. You can either include/exclude the companies that has the selected status",
+            "field": "featured_job_title",
+            "type": "multidropdown",
+            "selectValues": [
+                {"value": "owner", "label": "Owner"},
+                {"value": "founder", "label": "Founder"},
+                {"value": "C Suite", "label": "C Suite"},
+                {"value": "partner", "label": "Partner"},
+                {"value": "vp", "label": "VP"},
+                {"value": "head", "label": "Head"},
+                {"value": "director", "label": "Director"},
+                {"value": "manager", "label": "Manager"},
+                {"value": "senior", "label": "Senior"},
+                {"value": "entry", "label": "Entry"},
+                {"value": "intern", "label": "Intern"},
+                {"value": "unknown", "label": "Unknown"}],
+            "filteredValue": "",
+            "filteredText": [],
+            "condition": "includes"
+        },        
+        {
+            "displayText": "HQ Location",
+            "displayMsg": "Please select any location from the list. You can either include/exclude companies that operate in the selected location will be filtered",
+            "field": "location1",
+            "type": "search",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": true,
+            "splitColumns": ["company_city","company_country_code"]
+        },
+        {
+            "displayText": "Employee Count",
+            "displayMsg": "Please select the desired range. You can either include/exclude the companies that fall in the range",
+            "field": "employee_count",
+            "type": "multidropdown",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },   
+        {
+            "displayText": "Industry",
+            "displayMsg": "Please select any category from the list. You can either include/exclude companies that operate in the selected category will be filtered",
+            "field": "category_list",
+            "type": "multidropdown",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },             
+        {
+            "displayText": "Revenue",
+            "displayMsg": "Please select the desired range. You can either include/exclude the companies that fall in the range",
+            "field": "revenue_range",
+            "type": "multidropdown",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },
+        {
+            "displayText": "Past Company",
+            "displayMsg": "Please enter the people name here. You can either include/exclude people matching the name you entered",
+            "field": "jobs_company_names",
+            "type": "multitext",
+            "selectValues": [],
+            "filteredValue": "",
+            "matchtype": "match_phrase",
+            "filteredText": [],
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },
+        {
+            "displayText": "School",
+            "displayMsg": "Please enter the people name here. You can either include/exclude people matching the name you entered",
+            "field": "education_school_names",
+            "type": "multitext",
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "matchtype": "match_phrase",
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },
+        {
+            "displayText": "Funding",
+            "displayMsg": "Please enter the minimum and funding amount(usd) to find the companies in the range",
+            "field": "total_funding_usd",
+            "type": "numberrange",
+            "minValue": "",
+            "maxValue": ""
+        },
+        {
+            "displayText": "Skills & Interests",
+            "displayMsg": "Please select the desired range. You can either include/exclude the companies that fall in the range",
+            "field": "skills",
+            "type": "multitext",
+            "selectValues": [],
+            "matchtype": "match_phrase",
+            "filteredValue": "",
+            "filteredText": [],
+            "condition": "includes",
+            "splitFilteredValue": false,
+            "splitColumns": []
+        },
+        {
+            "displayText": "File Exclusion",
+            "displayMsg": "Please select the desired status. You can either include/exclude the companies that has the selected status",
+            "field": "exclusion",
+            "type": "exclusion",
+            "selectValues1": [
+                {"value": "phone", "label": "Phone"},
+                {"value": "email", "label": "Email"},
+                {"value": "homepage_url", "label": "Website Url"}
+            ],
+            "selectValues": [],
+            "filteredValue": "",
+            "filteredText": [],
+            "condition": "excludes"
+        }
+        
+    ]
+}

@@ -1,0 +1,100 @@
+<div class="card" *ngIf="api.variant == 'v1'">
+    <div class="card-block">
+        <div class="row align-items-center justify-content-center pb-3" *ngIf="api.heading">
+            <div class="col-auto pr-0" *ngIf="api.icon">
+                <i [class]="api.icon" aria-hidden="true"></i>
+            </div>
+            <div class="col">
+                <h5>{{api.heading}}</h5>
+            </div>
+        </div>
+        <ul *ngIf="result.length" class="task-list" #scrollBar style="max-height:300px;" infiniteScroll
+            [infiniteScrollDistance]="2" (scrolled)="onScroll()" [scrollWindow]="false">
+            <li *ngFor="let data of result">
+                <a href="javascript:" (click)="onNavigate(data._source['permalink'])" title="{{data._source[api.columns[0]]}}" *ngIf="api.variant == 'v1'">
+                    <i class="task-icon bg-c-green"></i>
+                    <img *ngIf="data._source[api.columns[5]]" class="img-fluid news-thumbnail" src="{{data._source[api.columns[5]]}}"
+                                    alt="dashboard-user">
+                    <h6 style="margin-left: 60px; overflow: hidden"><div style="width: 80%; float: left">{{data._source[api.columns[0]]}}</div><span class="float-right text-muted">{{data._source[api.columns[2]]
+                            | date:'MMM dd, yy'}}</span></h6>
+                    <p class="text-muted" style="width: 80%; margin-left: 60px"><span *ngIf="data._source[api.columns[1]]" class="mr-3">Author - {{data._source[api.columns[1]]}}</span><span *ngIf="data._source[api.columns[1]]">Publisher - {{data._source[api.columns[4]]}}</span></p>
+                </a>
+            </li>
+        </ul>
+        <h6 *ngIf="!result.length" class="text-left m-0">{{msg}}</h6>
+    </div>
+</div>
+
+<div class="card" *ngIf="api.variant == 'v2'">
+    <div class="card-block">
+        <div class="row align-items-center justify-content-center pb-3" *ngIf="api.heading">
+            <div class="col-auto pr-0" *ngIf="api.icon">
+                <i [class]="api.icon" aria-hidden="true"></i>
+            </div>
+            <div class="col">
+                <h5>{{api.heading}}</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xl-4 pr-0 ">
+                <div class="card sticky-block" *ngIf="company">
+                    <div class="card-block p-0">
+                        <div class="text-center p-2">
+                            <a href="javascript:" (click)="onNavigate(company.permalink)">
+                                <img class="img-fluid rounded-circle" style="width:120px; height:120px" src="{{company.logo_url}}"
+                                    alt="dashboard-user">
+                                <h5 class="mt-4 mb-3 ellipsis">{{company.company_name}}</h5>
+                            </a>
+                            <p class="text-muted">{{company.short_description}}</p>
+                            <p><span *ngFor="let industry of company.industries; index as i" class="mb-1 badge p-1 pl-2 pr-2 mr-2 f-10 shadow-1 badge-pill theme-bg text-white text-uppercase">{{industry}}</span></p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row card-active text-center">
+                            <div class="col " *ngIf="company.revenue_range">
+                                <h6>{{company.revenue_range}}</h6>
+                                <div class="text-muted">Revenue</div>
+                            </div>
+                            <div class="col" *ngIf="company.employee_count">
+                                <h6>{{company.employee_count}}</h6>
+                                <div class="text-muted">Employees</div>
+                            </div>
+                            <div class="col ">
+                                    <h6 *ngIf="company.status == 'acquired'" class="mb-1 badge p-1 pl-2 pr-2 f-10 shadow-1 badge-pill theme-bg text-white text-uppercase">{{company.status
+                                            || 'unknown'}}</h6>
+                                        <h6 *ngIf="company.status == 'operating'" class="mb-1 badge p-1 pl-2 pr-2 f-10 shadow-1 badge-pill theme-bg2 text-white text-uppercase">{{company.status
+                                            || 'unknown'}}</h6>
+                                        <h6 *ngIf="company.status == 'closed'" class="mb-1 badge p-1 pl-2 pr-2 f-10 shadow-1 badge-pill theme-bg4 text-white text-uppercase">{{company.status
+                                            || 'unknown'}}</h6>
+                                        <h6 *ngIf="company.status == 'ipo'" class="mb-1 badge p-1 pl-2 pr-2 f-10 shadow-1 badge-pill theme-bg3 text-white text-uppercase">{{company.status
+                                            || 'unknown'}}</h6>
+                                <div class="text-muted">Status</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-xl-8 pl-0">
+                <ul *ngIf="result.length" class="task-list">
+                    <li *ngFor="let data of result">
+                        <a href="javascript:" (mouseover)="onCompanySelected(data)" title="{{data._source[api.columns[1]]}}">
+                            <i class="task-icon bg-c-green"></i>
+                            <div class="row">
+                                <div class="col-md-9 col-xl-9">
+                                    <h6>{{data._source[api.columns[0]]}}</h6>
+                                    <p class="text-muted">{{data._source[api.columns[1]]}}</p>
+                                </div>
+                                <div class="col-md-3 col-xl-3">
+                                    <span class="float-right text-muted" *ngIf="data._source[api.columns[2]]">{{data._source[api.columns[2]]
+                                        | date:'MMM, yy'}} - <span *ngIf="data._source[api.columns[3]] && data._source[api.columns[4]] != 'True'">{{data._source[api.columns[3]]
+                                            | date:'MMM, yy'}}</span> <span class="text-c-green" *ngIf="data._source[api.columns[4]] == 'True'">Current</span></span>
+                                </div>
+                            </div>
+
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

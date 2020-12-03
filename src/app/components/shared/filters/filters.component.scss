@@ -1,0 +1,29 @@
+.custom-filter {
+    top: -70px;
+    position: absolute;
+    right: 5px;
+}
+.btn.btn-icon.custom-filter {
+    width: 38px;
+height: 38px;
+padding: 10px 5px;
+}
+
+.dropdown-btn .ui-multiselect {
+    width: 100%;
+}
+
+ng-select select-dropdown > div {
+    z-index: 2;
+}
+
+ng-select select-dropdown>div .options {
+    max-height: 150px;
+}
+
+@media only screen and (max-width: 768px) {
+    .custom-filter {
+    top: 0;
+    position: relative;
+    }
+}

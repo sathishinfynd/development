@@ -1,0 +1,7 @@
+<div class="navbar-brand header-logo">
+  <a [routerLink]="['/quick-search']" class="b-brand">
+    <img src="assets/images/logo.png" class='pc-logo' alt="BizSeg Logo" />
+    <div class="b-title text-left">BizSeg</div>
+  </a>
+  <a href="javascript:" class="mobile-menu" [ngClass]="{'on' : navCollapsed}" id="mobile-collapse" (click)="navCollapse()"><span *ngIf="!navCollapsed"></span><i *ngIf="navCollapsed" class="feather icon-menu"></i></a>
+</div>

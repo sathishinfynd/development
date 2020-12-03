@@ -1,0 +1,38 @@
+<div class="row justify-content-md-center">
+    <div class="col-md-12 col-xl-12">
+        <h1 class="text-center title"><i class="feather icon-heart mr-3 "></i>Your Favourite companies</h1>
+    </div>
+    <div class="col-sm-12 col-md-12">
+            <app-card cardTitle="Favourite Companies" [options]="false" cardClass="" blockClass="px-0 py-0">
+                <div class="table-responsive" style="max-height:616px;" infiniteScroll [infiniteScrollDistance]="2"
+                (scrolled)="onScrollCompany()"
+                [scrollWindow]="false">
+                    <table class="table table-hover">
+                        <tbody>
+                                <tr class="unread" style="height:77px;" *ngFor="let company of companyTile.result">
+                                    <td style="width:50px;">
+                                            <a href="javascript:" title="{{company.company_name}}" [routerLink]="['/organisations',company.company_name]">    
+                                        <img class="text-right" style="width:40px;" src="{{company.logo_url}}"
+                                            alt="{{company.company_name}}">
+                                            </a>
+                                        </td>
+                                    <td>
+                                            <a href="javascript:" title="{{company.company_name}}" [routerLink]="['/organisations',company.company_name]">
+
+                                        <h6 class="mb-2 f-14">{{company.company_name}}</h6>
+                                        <p class="m-0 f-12 ellipsis">{{company.short_description}}</p>
+                                    </a>
+                                    </td>
+                                    <td style="width: 200px;" class="text-center">
+                                            <button type="button" class="btn btn-rounded btn-primary m-0  p-2 pr-3 f-12 shadow-2"
+                                            (click)="unFollow(company.company_id)"><i class="feather icon-plus mr-2 f-18"></i>Unfollow</button>
+                                    </td>
+                                </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </app-card>
+
+        </div>
+</div>
